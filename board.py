@@ -73,4 +73,12 @@ class Board:
 
 if __name__ == "__main__":
     print("Running board.py directly... Testing the Board class:")
-    board = Board()
+    board = Board(3)
+    print(board.place_mark(0, 0, "X"))     # True
+    print(board.place_mark(0, 0, "O"))     # False, the cell is taken
+    print(board.place_mark(3, 0, "O"))     # False, off the board
+    print(board.place_mark(-1, 0, "O"))    # False, rejected
+    board.place_mark(1, 1, "O")
+
+    print(board)
+    print(len(board.empty_cells()))        # 7
