@@ -50,11 +50,9 @@ def test_game_starts_with_x_and_in_progress(game):
     assert game.get_game_state() is GameState.IN_PROGRESS
 
 def test_full_board_with_no_winner_is_a_draw(game):
-    for row, col in [(0, 1), (0, 0), (1, 0),(0, 2), (1, 1), (1, 2),(2, 0), (2, 1), (2, 2),
-    ]:
-
+    for row, col in [(0, 1), (0, 0), (1, 0),(0, 2), (1, 1), (1, 2),(2, 0), (2, 1), (2, 2)]:
+        assert game.make_move(game.get_current_player(), row, col) is True
     assert game.get_winner() is None
-    assert game.make_move(game.get_current_player(), row, col) is True
     assert game.get_board().is_full() is True
     assert game.get_game_state() is GameState.DRAW
 
