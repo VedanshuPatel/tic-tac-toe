@@ -31,9 +31,9 @@ class Board:
         return True
     
     def remove_mark(self, row, col):
-        """Remove mark at row,col. Return Nothing. Print message if position not in range. """
+        """Remove mark at row,col. Return Nothing"""
         if self._in_range(row,col):
-            self._grid[row][col] = " " 
+            self._grid[row][col] = EMPTY 
 
     def empty_cells(self):
         """Return a list of (row, col) pairs for every empty cell."""
