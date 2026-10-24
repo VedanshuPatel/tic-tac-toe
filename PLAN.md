@@ -52,4 +52,4 @@ This is a terminal-based Tic-Tac-Toe game played on a 3x3 grid. It supports two 
 
 
 ## What changed
-
+Game modes and AI setup live in main.py, not in Game. The Components table had assigned modes to Game. In the finished code, Game only tracks turns and win or draw with the marks "X" and "O". main.py asks for two-player or versus AI, builds EasyAI or HardAI, and on the AI's turn calls choose_move then Game.make_move. Polymorphism is still used as neither Game nor main branches on Easy versus Hard. Board accepts an optional size (default 3) for flexibility in tests and further extensibility.
