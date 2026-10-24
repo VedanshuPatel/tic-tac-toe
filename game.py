@@ -59,19 +59,3 @@ class Game:
         else:
             self.current_player = self.player2 if self.current_player is self.player1 else self.player1
         return True
-
-if __name__ == "__main__":
-    game = Game("X", "O")
-    print("Start:", game.get_current_player(), game.get_game_state())
-    print(game.get_board())
-    print("X plays 2 3:", game.make_move("X", 1, 2))
-    print("Current:", game.get_current_player())
-    print(game.get_board())
-    print("O tries taken cell:", game.make_move("O", 1, 2))
-    print("Still O's turn:", game.get_current_player())
-    print("O plays 1 1:", game.make_move("O", 0, 0))
-    print("X plays 3 1:", game.make_move("X", 2, 0))
-    print("O plays 2 2:", game.make_move("O", 1, 1))
-    print("X plays 1 3:", game.make_move("X", 0, 2))
-    print("State:", game.get_game_state(), "Winner:", game.get_winner())
-    print(game.get_board())
