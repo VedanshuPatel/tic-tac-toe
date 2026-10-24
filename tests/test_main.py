@@ -95,7 +95,7 @@ def test_process_player_input_converts_one_based_to_zero_based(text, expected):
     assert process_player_input(text) == expected
 
 def test_main_announces_player_win(monkeypatch, capsys):
-    answers = iter(["1 3", "1 1", "2 3", "2 1", "3 3"])
+    answers = iter(["1", "1 3", "1 1", "2 3", "2 1", "3 3"])
     monkeypatch.setattr("builtins.input", lambda _: next(answers))
     main()
 
@@ -104,7 +104,7 @@ def test_main_announces_player_win(monkeypatch, capsys):
     assert "wins" in out.lower()
 
 def test_main_announces_draw(monkeypatch, capsys):
-    answers = iter([
+    answers = iter(["1",
         "1 2", "1 1", "2 1",
         "1 3", "2 2", "2 3",
         "3 1", "3 2", "3 3",
@@ -125,7 +125,7 @@ def test_play_turn_retries_multiple_bad_inputs_then_succeeds(monkeypatch):
     assert game.get_board().cell(1, 1) == "X"
 
 def test_main_announces_O_wins(monkeypatch, capsys):
-    answers = iter(["1 1", "1 2", "1 3", "2 2", "3 3", "3 2"])
+    answers = iter(["1", "1 1", "1 2", "1 3", "2 2", "3 3", "3 2"])
     monkeypatch.setattr("builtins.input", lambda _: next(answers))
     main()
 
@@ -141,3 +141,32 @@ def test_play_turn_retries_after_off_board_move(monkeypatch):
 
     assert game.get_current_player() == "O"
     assert game.get_board().cell(0, 2) == "X"
+
+def test_choose_game_mode_rejects_invalid_then_returns_two_player(monkeypatch):
+    from main import choose_game_mode
+    answers = iter(["9", "1"])
+    monkeypatch.setattr("builtins.input", lambda _: next(answers))
+
+    assert choose_game_mode() == "two_player"
+
+def test_choose_ai_difficulty_returns_hard(monkeypatch):
+    from main import choose_ai_difficulty
+    from ai import HardAI
+    monkeypatch.setattr("builtins.input", lambda _: "2")
+
+    assert isinstance(choose_ai_difficulty(), HardAI)
+
+def test_choose_ai_difficulty_rejects_invalid_then_returns_easy(monkeypatch):
+    from main import choose_ai_difficulty
+    from ai import EasyAI
+    answers = iter(["9", "1"])
+    monkeypatch.setattr("builtins.input", lambda _: next(answers))
+    ai = choose_ai_difficulty()
+
+    assert isinstance(ai, EasyAI)
+
+def test_choose_game_mode_returns_ai_opponent(monkeypatch):
+    from main import choose_game_mode
+    monkeypatch.setattr("builtins.input", lambda _: "2")
+
+    assert choose_game_mode() == "ai_opponent"
